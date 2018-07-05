@@ -38,7 +38,7 @@
 
 		h2 {
 			font-size: 2.5rem;
-			line-height: .3;
+			line-height: 1;
 		}
 
 		h2,
@@ -54,6 +54,19 @@
 			background-size: cover;
 			background-position: center center;
 			min-height: 300px;
+		}
+
+		@media screen and (max-width:400px) {
+			a {
+				min-width: unset;
+
+			}
+			body {
+				padding: 0;
+			}
+			h2 {
+				font-size: 2rem;
+			}
 		}
 	</style>
 </head>
