@@ -1,34 +1,41 @@
 window.onload = function() {
-	var game = new Phaser.Game(960, 720, Phaser.AUTO, "phaser-canvas", { preload: preload, create: create });
+	var game = new Phaser.Game(960, 720, Phaser.AUTO, "phaser-canvas", { preload: preload, create: create, render: render });
 
-	function preload() {
-		game.load.image("background", "./img/background.png");
-		game.load.image("marker", "img/marker.png");
-		game.load.spritesheet("playButton", "img/play_button.png", 180, 90);
-	}
+	function preload() {}
 
 	function create() {
-		var sp_background = game.add.sprite(0, 0, "background");
-		var sp_Marker = game.add.sprite(game.world.centerX, game.world.centerY, "marker");
-		sp_Marker.anchor.setTo(0.5, 0.5);
+		game.stage.backgroundColor = 0xffffff;
 
-		var scoreNum = 1200;
+		// Backgrounds
+		let backgrounds = game.add.group();
 
-		var generalStyle = {
-			width: "150px",
-			font: "35px Arial",
-			fill: "black",
-			align: "left"
-		};
+		let red_BG = game.add.graphics();
+		red_BG.lineStyle(0, 0xf5436b, 1);
+		red_BG.beginFill(0xf5436b, 1);
+		red_BG.drawRect(10, 10, 465, 700);
+		red_BG.endFill();
+		backgrounds.add(red_BG);
 
-		var txScore = game.add.text(25, 15, scoreNum, generalStyle);
+		let blue_BG = game.make.graphics();
+		blue_BG.lineStyle(0, 0x438eeb, 1);
+		blue_BG.beginFill(0x438eeb, 1);
+		blue_BG.drawRect(485, 10, 465, 700);
+		blue_BG.endFill();
+		backgrounds.add(blue_BG);
+		// End Backgrounds
 
-		// Add button
-		// the numbers given are the indices of the frames in this order: OVER, OUT, DOWN
-		var bt_Play = game.add.button(25, 150, "playButton", actionOnClick, this, 1, 0, 2);
+		let red_blocks = game.add.group();
+		makeBlock(25, 25, 50, 50, 1, red_blocks);
 	}
 
-	function actionOnClick() {
-		// alert("play button clicked")
+	//Makes white rectangle
+	// Adds rectangle to given group
+	function makeBlock(x1, y1, x2, y2, opacity, group) {
+		let block = game.add.graphics(); // adds to the world stage
+		block.lineStyle(0, 0xf5436b, 1);
+		block.beginFill(0xffffff, opacity);
+		block.drawRect(x1, y1, x2, y2);
+		block.endFill();
+		group.add(block);
 	}
 }; //end onload function
