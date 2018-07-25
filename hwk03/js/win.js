@@ -17,9 +17,9 @@ window.onload = function() {
 
 	function preload() {
 		game.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
-		game.load.image("dots", "./imgs/dotted_line.png");
 		game.load.image("space", "./imgs/spaceBG.png");
-		game.load.image("aBG", "./imgs/ABG.png");
+		game.load.image("winR", "./imgs/WinBlocksRed.png");
+		game.load.image("winB", "./imgs/WinBlocksBlue.png");
 	}
 
 	function create() {
@@ -43,26 +43,12 @@ window.onload = function() {
 		backgrounds.add(blue_BG);
 		// End Backgrounds
 
-		let red_blocks = game.add.group();
-		makeBlock(168, 363, 103, 63, 1, red_blocks);
-		makeBlock(168, 449, 103, 63, 1, red_blocks);
-		makeBlock(112, 512, 159, 63, 0.8, red_blocks);
-		makeBlock(112, 575, 256, 63, 0.6, red_blocks);
-		makeBlock(112, 638, 256, 63, 0.4, red_blocks);
-
-		makeBlock(300, 449, 56, 63, 1, red_blocks);
-		var line = game.add.sprite(285, 449, "dots");
-
-		let blue_blocks = game.add.group();
-		makeBlock(661, 363, 102, 63, 1, blue_blocks);
-		makeBlock(661, 450, 102, 63, 1, blue_blocks);
-		makeBlock(661, 512, 102, 63, 0.8, blue_blocks);
-		makeBlock(592, 575, 171, 63, 0.6, blue_blocks);
-		makeBlock(592, 638, 256, 63, 0.4, blue_blocks);
-
 		var spaceBG = game.add.sprite(190, 182, "space");
-		var aBG = game.add.sprite(156, 293, "aBG");
-		var bBG = game.add.sprite(626, 293, "aBG");
+		var winR = game.add.sprite(330, 277, "winR");
+		var winB = game.add.sprite(793, 231, "winB");
+
+		makeBlock(735, 230, 88, 3);
+		makeBlock(255, 276, 88, 3);
 	}
 
 	//Makes white rectangle
@@ -80,20 +66,15 @@ window.onload = function() {
 	function createText() {
 		var bodyText =
 			"Stack tests your ability to multitask by having you play two versions of the game simoultaneously. Your goal is to get the stacks as tall as possible, but beware! The stacks are sinking, and if a part of the block hangs off the edge, it will be sliced off! Your goal is to get as high as possible in 2 minutes!";
-		var title = game.add.text(30, 15, "STACK", { fill: "#FFFFFF", font: "900 130px Raleway" });
-		var description = game.add.text(505, 36, bodyText, { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 16px Raleway" });
+		var gameText = game.add.text(105, 15, "YOU", { fill: "#FFFFFF", font: "900 130px Raleway" });
+		var overText = game.add.text(565, 15, "WIN!", { fill: "#FFFFFF", font: "900 130px Raleway" });
 
 		var pressSpace_1 = game.add.text(135, 188, "press", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
 		var pressSpace_2 = game.add.text(205, 188, "space", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
-		var pressSpace_3 = game.add.text(283, 188, "to start", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
+		var pressSpace_3 = game.add.text(283, 188, "to restart", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
 
-		var pressA_1 = game.add.text(100, 300, "press", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
-		var pressA_2 = game.add.text(167, 300, "A", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
-		var pressA_3 = game.add.text(197, 300, "to drop left block", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
-
-		var pressD_1 = game.add.text(570, 300, "press", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
-		var pressD_2 = game.add.text(637, 300, "D", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
-		var pressD_3 = game.add.text(667, 300, "to drop right block", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
+		var heightRed = game.add.text(152, 257, "Height: 18", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
+		var heightBlue = game.add.text(624, 211, "Height: 20", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
 
 		// text.inputEnabled = true;
 		// text.input.enableDrag();
