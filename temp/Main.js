@@ -3,6 +3,7 @@ gameObj.Main = function (game) {};
 gameObj.Main.prototype = {
   create: function () {
     console.log('State - Main');
+    //Add background image
     var spBackground = this.add.sprite(this.world.centerX, this.world.centerY, 'background');
     spBackground.anchor.setTo(0.5, 0.5);
 
@@ -21,7 +22,7 @@ gameObj.Main.prototype = {
     var spHealthyCell = this.add.sprite(this.world.centerX - 230, this.world.centerY + 140, 'small_healthy_cell');
     var spTime = this.add.sprite(this.world.centerX - 230, this.world.centerY + 230, 'small_time');
 
-
+    //Add text
     var txFirst = this.add.text(this.world.centerX - 100, this.world.centerY - 40, 'Click to move');
     var txSecond = this.add.text(this.world.centerX - 100, this.world.centerY + 60, 'Avoid to survive');
     var txThird = this.add.text(this.world.centerX - 100, this.world.centerY + 170, 'Touch for points');
@@ -44,10 +45,6 @@ gameObj.Main.prototype = {
   },
   actionOnClick: function () {
     console.log('actionOnClick called');
-    this.state.start('Play')
-  },
-  createText: function () {
-    //Add text
-
+    this.state.start('Play');
   }
 };

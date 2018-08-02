@@ -18,7 +18,6 @@
       var s = document.getElementsByTagName('script')[0];
       s.parentNode.insertBefore(wf, s);
     })();
-
   </script>
 
   <link rel="stylesheet" href="css/main.css">
@@ -28,6 +27,8 @@
   <script src="Preloader.js"></script>
   <script src="Main.js"></script>
   <script src="Play.js"></script>
+  <script src="Winner.js"></script>
+  <script src="Loser.js"></script>
 </head>
 
 <body>
@@ -35,17 +36,19 @@
   <script type="text/javascript">
     window.onload = function() {
       console.log('windows loaded');
-      //
-      var game = new Phaser.Game(820, 700, Phaser.AUTO, 'phaser-canvas');
-      game.state.add('Boot',gameObj.Boot)
-      game.state.add('Preloader',gameObj.Preloader)
-      game.state.add('Main',gameObj.Main)
-      game.state.add('Play', gameObj.Play)
-      game.state.start('Boot')
 
+      var game = new Phaser.Game(820, 700, Phaser.AUTO, 'phaser-canvas');
+
+      game.state.add('Boot', gameObj.Boot);
+      game.state.add('Preloader', gameObj.Preloader);
+      game.state.add('Main', gameObj.Main);
+      game.state.add('Play', gameObj.Play);
+      game.state.add('Winner', gameObj.Winner);
+      game.state.add('Loser', gameObj.Loser);
+
+      game.state.start('Boot');
 
     }; // windows.onload
-
   </script>
 </body>
 
