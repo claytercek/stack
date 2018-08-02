@@ -1,7 +1,7 @@
-gameObj.Game = function (game) {};
+gameObj.Game = function(game) {};
 
 gameObj.Game.prototype = {
-	create: function () {
+	create: function() {
 		this.stage.backgroundColor = 0xffffff;
 
 		// Backgrounds
@@ -44,7 +44,6 @@ gameObj.Game.prototype = {
 		this.makeBlock(595, 355, 238, 72, 1, blue_blocks);
 		this.makeBlock(684, 263, 238, 72, 1, blue_blocks);
 
-
 		var title1 = this.add.text(180, 55, "Height: 4", {
 			fill: "#FFFFFF",
 			font: "600 32px Raleway"
@@ -53,8 +52,22 @@ gameObj.Game.prototype = {
 			fill: "#FFFFFF",
 			font: "600 32px Raleway"
 		});
+
+		var dBG = this.add.sprite(826, 193, "aBG");
+		var pressD_2 = this.add.text(837, 200, "D", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
+		var pressD_3 = this.add.text(867, 200, "to lose", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
+
+		var aBG = this.add.sprite(826, 143, "aBG");
+		var pressA_2 = this.add.text(837, 150, "A", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
+		var pressA_3 = this.add.text(867, 150, "to win", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
+
+		keyA = this.input.keyboard.addKey(Phaser.Keyboard.A);
+		keyA.onDown.add(this.win, this);
+
+		keyD = this.input.keyboard.addKey(Phaser.Keyboard.D);
+		keyD.onDown.add(this.lose, this);
 	},
-	makeBlock: function (x1, y1, w, h, opacity, group) {
+	makeBlock: function(x1, y1, w, h, opacity, group) {
 		let o = opacity ? opacity : 1;
 		let block = this.add.graphics(); // adds to the world stage
 		block.lineStyle(0, 0xf5436b, 1);
@@ -62,5 +75,11 @@ gameObj.Game.prototype = {
 		block.drawRect(x1, y1, w, h);
 		block.endFill();
 		group ? group.add(block) : "";
+	},
+	win: function() {
+		this.state.start("Win");
+	},
+	lose: function() {
+		this.state.start("Lose");
 	}
 };

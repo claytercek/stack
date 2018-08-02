@@ -1,7 +1,7 @@
-gameObj.Win = function (game) {};
+gameObj.Win = function(game) {};
 
 gameObj.Win.prototype = {
-	create: function () {
+	create: function() {
 		this.stage.backgroundColor = 0xffffff;
 
 		// Backgrounds
@@ -70,8 +70,10 @@ gameObj.Win.prototype = {
 			font: "600 20px Raleway"
 		});
 
+		keySpace = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		keySpace.onDown.add(this.start, this);
 	},
-	makeBlock: function (x1, y1, w, h, opacity, group) {
+	makeBlock: function(x1, y1, w, h, opacity, group) {
 		let o = opacity ? opacity : 1;
 		let block = this.add.graphics(); // adds to the world stage
 		block.lineStyle(0, 0xf5436b, 1);
@@ -79,5 +81,8 @@ gameObj.Win.prototype = {
 		block.drawRect(x1, y1, w, h);
 		block.endFill();
 		group ? group.add(block) : "";
+	},
+	start: function() {
+		this.state.start("Game");
 	}
 };

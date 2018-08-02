@@ -1,9 +1,9 @@
-gameObj.Intro = function (game) {};
+gameObj.Intro = function(game) {};
 
 gameObj.Intro.prototype = {
-  create: function () {
-	console.log('State - Intro');
-	this.stage.backgroundColor = 0xffffff;
+	create: function() {
+		console.log("State - Intro");
+		this.stage.backgroundColor = 0xffffff;
 
 		// Backgrounds
 		let backgrounds = this.add.group();
@@ -44,7 +44,6 @@ gameObj.Intro.prototype = {
 		var aBG = this.add.sprite(156, 293, "aBG");
 		var bBG = this.add.sprite(626, 293, "aBG");
 
-
 		var bodyText =
 			"Stack tests your ability to multitask by having you play two versions of the game simoultaneously. Your goal is to get the stacks as tall as possible, but beware! The stacks are sinking, and if a part of the block hangs off the edge, it will be sliced off! Your goal is to get as high as possible in 2 minutes!";
 		var title = this.add.text(30, 15, "STACK", { fill: "#FFFFFF", font: "900 130px Raleway" });
@@ -62,8 +61,10 @@ gameObj.Intro.prototype = {
 		var pressD_2 = this.add.text(637, 300, "D", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
 		var pressD_3 = this.add.text(667, 300, "to drop right block", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
 
-  },
-  makeBlock: function (x1, y1, w, h, opacity, group) {
+		keySpace = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		keySpace.onDown.add(this.start, this);
+	},
+	makeBlock: function(x1, y1, w, h, opacity, group) {
 		let o = opacity ? opacity : 1;
 		let block = this.add.graphics(); // adds to the world stage
 		block.lineStyle(0, 0xf5436b, 1);
@@ -71,7 +72,8 @@ gameObj.Intro.prototype = {
 		block.drawRect(x1, y1, w, h);
 		block.endFill();
 		group ? group.add(block) : "";
-  }
+	},
+	start: function() {
+		this.state.start("Game");
+	}
 };
-
-
