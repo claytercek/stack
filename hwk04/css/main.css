@@ -1,0 +1,35 @@
+body {
+	background-color: #222233;
+	display: flex;
+	flex-flow: row wrap;
+	padding: 2rem;
+	align-content: center;
+	justify-content: center;
+}
+
+a {
+	width: calc(50% - 2rem);
+	margin: 1rem;
+	min-width: 340px;
+	flex-grow: 1;
+	background-color: white;
+	text-decoration: none;
+	box-shadow: 0 0 0 0px #f5436b;
+	transition: all ease-in 0.1s;
+}
+
+a:hover {
+	box-shadow: 0 0 0 10px #f5436b;
+}
+
+img {
+	width: 100%;
+}
+
+h3 {
+	text-decoration: none;
+	color: #222233;
+	font-family: sans-serif;
+	width: 100%;
+	text-align: center;
+}
