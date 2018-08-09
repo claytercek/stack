@@ -4,7 +4,6 @@ gameObj.Game = function(game) {
 	var timerObj;
 	var timerSeconds;
 	var timerBar;
-	var startDate;
 };
 
 gameObj.Game.prototype = {
@@ -29,9 +28,9 @@ gameObj.Game.prototype = {
 
 		//COUNTDOWN
 		timerSeconds = 80;
-		startDate = new Date();
+    gameObj.timeLeft = timerSeconds;
 		timerObj = this.game.time.create(false);
-		timerObj.loop(10, this.updateTimer, this);
+		timerObj.loop(Phaser.Timer.SECOND/60, this.updateTimer, this);
 		timerObj.start();
 
 
@@ -121,17 +120,14 @@ gameObj.Game.prototype = {
 		blueScore.text = "Height: " + gameObj.blueScore;
 	},
 	updateTimer: function() {
-		let msLength = timerSeconds * 1000;
-		let curDate = new Date();
-		let diff = curDate - startDate;
-		if (diff >= msLength ) {
+		gameObj.timeLeft -= 1/60;
+		if (gameObj.timeLeft <= 0 ) {
 			if (gameObj.redScore >= 100 && gameObj.blueScore >= 100) {
 				this.state.start("Win")
 			} else {
 				this.state.start("Lose")
 			}
 		}
-		timerBar.scale.x = 1 - ( diff ) / msLength;
-		gameObj.timeLeft = msLength - diff;
+		timerBar.scale.x = ( gameObj.timeLeft ) / timerSeconds;
 	}
 };

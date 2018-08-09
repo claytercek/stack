@@ -57,7 +57,7 @@ gameObj.Lose.prototype = {
 			font: "300 20px Raleway"
 		});
 
-		var timerSeconds = Math.floor(gameObj.timeLeft / 1000);
+		var timerSeconds = ((gameObj.timeLeft >= 0) ? Math.floor(gameObj.timeLeft) : 0);
 		var displayMin = Math.floor(timerSeconds / 60);
 		if (displayMin < 10) {
 			displayMin = "0" + displayMin;

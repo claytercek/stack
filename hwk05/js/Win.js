@@ -56,8 +56,8 @@ gameObj.Win.prototype = {
 			wordWrapWidth: 440,
 			font: "300 20px Raleway"
 		});
-
-		var timerSeconds = Math.floor(gameObj.timeLeft / 1000);
+		console.log(gameObj.timeLeft)
+		var timerSeconds = ((gameObj.timeLeft >= 0) ? Math.floor(gameObj.timeLeft) : 0);
 		var displayMin = Math.floor(timerSeconds / 60);
 		if (displayMin < 10) {
 			displayMin = "0" + displayMin;
