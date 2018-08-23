@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Clay Tercek | Hwk04</title>
+	<script type="text/javascript">
+		WebFontConfig = {
+			google: {
+				families: ["Raleway:900,300,600"]
+			}
+		};
+		(function () {
+			var wf = document.createElement('script');
+			wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+			wf.type = 'text/javascript';
+			wf.async = 'true';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(wf, s);
+		})();
+	</script>
+
+	<link rel="stylesheet" href="css/main.css">
+
+	<script src="js/phaser.min.js"></script>
+	<script src="js/Boot.js"></script>
+	<script src="js/Preloader.js"></script>
+	<script src="js/Intro.js"></script>
+	<script src="js/Game.js"></script>
+	<script src="js/Lose.js"></script>
+	<script src="js/Win.js"></script>
+</head>
+
+<body>
+	<div id="phaser-canvas"></div>
+	<script type="text/javascript">
+		window.onload = function () {
+			console.log('windows loaded');
+
+			var game = new Phaser.Game(960, 720, Phaser.AUTO, 'phaser-canvas');
+			game.state.add('Boot', gameObj.Boot)
+			game.state.add('Preloader', gameObj.Preloader)
+			game.state.add('Intro', gameObj.Intro)
+			game.state.add('Game', gameObj.Game)
+			game.state.add('Lose', gameObj.Lose)
+			game.state.add('Win', gameObj.Win)
+			//   game.state.add('Play', gameObj.Play)
+			game.state.start('Boot')
+
+
+		}; // windows.onload
+	</script>
+</body>
+
+</html>
