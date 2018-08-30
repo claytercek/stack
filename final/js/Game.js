@@ -6,12 +6,16 @@ gameObj.Game = function(game) {
 	var timerObj;
 	var timerSeconds;
 	var timerBar;
+    var hoverRed;
+    var hoverBlue;
+    var isAccelerated = false;
 };
 
 
 
 gameObj.Game.prototype = {
 	create: function() {
+        
 		this.stage.backgroundColor = 0xffffff;
 
 		// Backgrounds
@@ -49,7 +53,8 @@ gameObj.Game.prototype = {
         redTower = {
             rectangles : Array(),
             height : 0,
-            group : this.add.group()
+            group : this.add.group(),
+            hover: null
         }
         
         
@@ -61,7 +66,8 @@ gameObj.Game.prototype = {
         blueTower = {
             rectangles : Array(),
             height : 0,
-            group : this.add.group()
+            group : this.add.group(),
+            hover: null
         }
         
         
@@ -80,6 +86,8 @@ gameObj.Game.prototype = {
 			fill: "#FFFFFF",
 			font: "600 32px Raleway"
 		});
+        
+        
         
         keyA = this.input.keyboard.addKey(Phaser.Keyboard.A);
 		keyA.onDown.add(function() {this.addBlock(redTower,280,0)}, this);
@@ -106,6 +114,49 @@ gameObj.Game.prototype = {
 				this.state.start("Lose")
 			}
         }
+        
+        
+        var maxHeight = (blueTower.rectangles[0].world.y - (72 * (blueTower.height - 1)));
+        if ((blueTower.rectangles[0].world.y - (72 * (blueTower.height - 1))) > (redTower.rectangles[0].world.y - (72 * (redTower.height - 1)))) {
+            maxHeight = (redTower.rectangles[0].world.y - (72 * (redTower.height - 1)))
+        }
+        
+        if (maxHeight < 200 ) {
+            blueTower.rectangles.forEach(function(item) {
+                item.body.velocity.y = 250;
+                
+            }, this);
+            blueTower.hover.body.velocity.y = 250;
+
+            redTower.rectangles.forEach(function(item) {
+                item.body.velocity.y = 250;
+            }, this);
+            redTower.hover.body.velocity.y = 250;
+            
+            gameObj.isAccelerated = true;
+            
+        } else if (gameObj.isAccelerated) {
+            blueTower.rectangles.forEach(function(item) {
+                item.body.velocity.y = 50;
+            }, this);
+            blueTower.hover.body.velocity.y = 50;
+            redTower.rectangles.forEach(function(item) {
+                item.body.velocity.y = 50;
+            }, this);
+            redTower.hover.body.velocity.y = 50;
+            gameObj.isAccelerated = false;
+        }
+    },
+    
+    addHoverBlock: function(towerObj, width, yPos) {
+        (towerObj.hover) ? towerObj.hover.destroy() : null ;
+        towerObj.hover = this.add.graphics(); 
+        towerObj.hover.lineStyle(0, 0xf5436b, 1);
+        towerObj.hover.beginFill(0xffffff, 1);
+        towerObj.hover.drawRect(towerObj.group.x - 80, yPos, width, 72);
+        towerObj.hover.endFill();
+        this.physics.arcade.enable(towerObj.hover);
+        towerObj.hover.body.velocity.y = (gameObj.isAccelerated) ? 250 : 50;
     },
     
 	addBlock: function(towerObj, width, x) {
@@ -126,10 +177,13 @@ gameObj.Game.prototype = {
         this.add.tween(block).to( { alpha: .5 }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
         
         this.physics.arcade.enable(block);
-        block.body.velocity.y = 50;
+        block.body.velocity.y = (gameObj.isAccelerated) ? 250 : 50;
         
         towerObj.rectangles.push(block)
         towerObj.group.add(block);
+        
+        
+        this.addHoverBlock(towerObj, width, (towerObj.rectangles[0].world.y - (72 * (towerObj.height + 1))))
 	},
     
     
