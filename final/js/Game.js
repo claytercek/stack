@@ -93,8 +93,6 @@ gameObj.Game.prototype = {
 
 			let x = null;
 
-			console.log(hoverX - towerX);
-
 			if (hoverX < towerX) {
 				width = width - towerX + hoverX;
 				x = towerX;
@@ -186,6 +184,7 @@ gameObj.Game.prototype = {
 	},
 
 	addHoverBlock: function(towerObj, width, yPos) {
+		yPos = yPos < 0 ? 492 : yPos;
 		towerObj.hover ? towerObj.hover.destroy() : null;
 		towerObj.hover = this.add.graphics();
 		towerObj.hover.lineStyle(0, 0xf5436b, 1);
@@ -199,7 +198,7 @@ gameObj.Game.prototype = {
 		this.physics.arcade.enable(towerObj.hover);
 		towerObj.hover.body.velocity.y = gameObj.isAccelerated ? 350 : 50;
 
-		var tween = this.add.tween(towerObj.hover).to({ x: endX }, 800 + width, "Linear", true, 0, -1);
+		var tween = this.add.tween(towerObj.hover).to({ x: endX }, 1000 - 300 * this.rnd.frac(), "Linear", true, 0, -1);
 		tween.timeline[0].dt = 10;
 		tween.yoyo(true);
 	},
@@ -219,7 +218,7 @@ gameObj.Game.prototype = {
 		block.drawRect(x, y, width, RectangleHeight);
 		block.endFill();
 
-		this.add.tween(block).to({ alpha: 0.5 }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
+		this.add.tween(block).to({ alpha: 0.5 }, 1000 - 300 * this.rnd.frac(), Phaser.Easing.Linear.None, true, 0, 0, false);
 
 		this.physics.arcade.enable(block);
 		block.body.velocity.y = gameObj.isAccelerated ? 350 : 50;
@@ -234,7 +233,6 @@ gameObj.Game.prototype = {
 		});
 
 		this.addHoverBlock(towerObj, width, towerObj.rectangles[0].world.y - 72 * (towerObj.height + 0.5));
-		console.log(towerObj.dimensions);
 	},
 
 	endGame: function() {
