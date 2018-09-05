@@ -5,6 +5,8 @@ gameObj.Game = function(game) {
 	var hoverRed;
 	var hoverBlue;
 	var isAccelerated = false;
+	var dropObj;
+	var soundsLoadedFlag = false;
 };
 
 gameObj.Game.prototype = {
@@ -105,6 +107,9 @@ gameObj.Game.prototype = {
 				this.endGame();
 				return;
 			}
+			if (soundsLoadedFlag) {
+				dropObj.play();
+			}
 
 			redScore.text = "Height: " + (gameObj.redTower.height + 1);
 
@@ -136,12 +141,28 @@ gameObj.Game.prototype = {
 				return;
 			}
 
+			if (soundsLoadedFlag) {
+				dropObj.play();
+			}
+
 			blueScore.text = "Height: " + (gameObj.blueTower.height + 1);
 
 			tower.width = width;
 			tower.topX = x;
 			this.addBlock(tower, width, x);
 		}, this);
+
+		dropObj = this.add.audio("drop");
+		//mp3 files take time to decode so check to make sure they are loaded
+		soundsLoadedFlag = false;
+
+		this.sound.setDecodedCallback(
+			[dropObj],
+			function() {
+				soundsLoadedFlag = true;
+			},
+			this
+		);
 	},
 
 	update: function() {

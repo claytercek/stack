@@ -4,6 +4,10 @@ gameObj.Win.prototype = {
 	create: function() {
 		this.stage.backgroundColor = 0xffffff;
 
+		winMusic = this.add.audio("win");
+
+		winMusic.play();
+
 		// Backgrounds
 		let backgrounds = this.add.group();
 

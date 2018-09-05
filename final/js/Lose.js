@@ -4,6 +4,10 @@ gameObj.Lose.prototype = {
 	create: function() {
 		this.stage.backgroundColor = 0xffffff;
 
+		loseMusic = this.add.audio("lose");
+
+		loseMusic.play();
+
 		// Backgrounds
 		let backgrounds = this.add.group();
 
@@ -83,25 +87,24 @@ gameObj.Lose.prototype = {
 		}
 
 		for (block of gameObj.blueTower.dimensions) {
-			this.makeBlock(800 + block.x * 3.88 * scaleFactor, 720 - block.y * scaleFactor, block.w * 3.88 * scaleFactor, scaleFactor);
+			this.makeBlock(800 + block.x * 3.88 * scaleFactor, 690 - block.y * scaleFactor, block.w * 3.88 * scaleFactor, scaleFactor);
 			var blueMaxY = 720 - block.y * scaleFactor;
 		}
 
 		for (block of gameObj.redTower.dimensions) {
-			this.makeBlock(320 + block.x * 3.88 * scaleFactor, 720 - block.y * scaleFactor, block.w * 3.88 * scaleFactor, scaleFactor);
+			this.makeBlock(320 + block.x * 3.88 * scaleFactor, 690 - block.y * scaleFactor, block.w * 3.88 * scaleFactor, scaleFactor);
 			var redMaxY = 720 - block.y * scaleFactor;
 		}
 
-		this.makeBlock(215, redMaxY, 88, 3);
-		this.makeBlock(695, blueMaxY, 88, 3);
-
-		var heightRed = this.add.text(108, redMaxY - 20, "Height: " + gameObj.redTower.height, {
+		this.makeBlock(215, redMaxY - 30, 88, 3);
+		this.makeBlock(695, blueMaxY - 30, 88, 3);
+		var heightRed = this.add.text(108, redMaxY - 50, "Height: " + gameObj.redTower.height, {
 			fill: "#FFFFFF",
 			wordWrap: true,
 			wordWrapWidth: 440,
 			font: "600 20px Raleway"
 		});
-		var heightBlue = this.add.text(584, blueMaxY - 20, "Height: " + gameObj.blueTower.height, {
+		var heightBlue = this.add.text(584, blueMaxY - 50, "Height: " + gameObj.blueTower.height, {
 			fill: "#FFFFFF",
 			wordWrap: true,
 			wordWrapWidth: 440,
@@ -121,6 +124,7 @@ gameObj.Lose.prototype = {
 		group ? group.add(block) : "";
 	},
 	start: function() {
+		loseMusic.stop();
 		this.state.start("Game");
 	}
 };
