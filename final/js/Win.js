@@ -23,11 +23,6 @@ gameObj.Win.prototype = {
 		// End Backgrounds
 
 		var spaceBG = this.add.sprite(190, 162, "space");
-		var winR = this.add.sprite(330, 277, "winR");
-		var winB = this.add.sprite(793, 231, "winB");
-
-		this.makeBlock(735, 230, 88, 3);
-		this.makeBlock(255, 276, 88, 3);
 
 		var gameText = this.add.text(105, 15, "YOU", {
 			fill: "#FFFFFF",
@@ -56,8 +51,8 @@ gameObj.Win.prototype = {
 			wordWrapWidth: 440,
 			font: "300 20px Raleway"
 		});
-		console.log(gameObj.timeLeft)
-		var timerSeconds = ((gameObj.timeLeft >= 0) ? Math.floor(gameObj.timeLeft) : 0);
+		console.log(gameObj.timeLeft);
+		var timerSeconds = gameObj.timeLeft >= 0 ? Math.floor(gameObj.timeLeft) : 0;
 		var displayMin = Math.floor(timerSeconds / 60);
 		if (displayMin < 10) {
 			displayMin = "0" + displayMin;
@@ -75,14 +70,35 @@ gameObj.Win.prototype = {
 			font: "300 20px Raleway"
 		});
 
+		var maxY = 450;
+		var scaleFactor = 30;
 
-		var heightRed = this.add.text(152, 257, "Height: " + gameObj.redScore, {
+		var maxHeight = gameObj.blueTower.height > gameObj.redTower.height ? gameObj.blueTower.height : gameObj.redTower.height;
+
+		if (maxHeight * scaleFactor > maxY) {
+			scaleFactor = maxY / maxHeight;
+		}
+
+		for (block of gameObj.blueTower.dimensions) {
+			this.makeBlock(800 + block.x * 3.88 * scaleFactor, 720 - block.y * scaleFactor, block.w * 3.88 * scaleFactor, scaleFactor);
+			var blueMaxY = 720 - block.y * scaleFactor;
+		}
+
+		for (block of gameObj.redTower.dimensions) {
+			this.makeBlock(320 + block.x * 3.88 * scaleFactor, 720 - block.y * scaleFactor, block.w * 3.88 * scaleFactor, scaleFactor);
+			var redMaxY = 720 - block.y * scaleFactor;
+		}
+
+		this.makeBlock(215, redMaxY, 88, 3);
+		this.makeBlock(695, blueMaxY, 88, 3);
+
+		var heightRed = this.add.text(108, redMaxY - 20, "Height: " + gameObj.redTower.height, {
 			fill: "#FFFFFF",
 			wordWrap: true,
 			wordWrapWidth: 440,
 			font: "600 20px Raleway"
 		});
-		var heightBlue = this.add.text(624, 211, "Height: " + gameObj.blueScore, {
+		var heightBlue = this.add.text(584, blueMaxY - 20, "Height: " + gameObj.blueTower.height, {
 			fill: "#FFFFFF",
 			wordWrap: true,
 			wordWrapWidth: 440,

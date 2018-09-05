@@ -20,19 +20,17 @@ gameObj.Game.prototype = {
 		red_BG.endFill();
 		backgrounds.add(red_BG);
 
-
 		gameObj.redScore = 0;
 		gameObj.blueScore = 0;
 
-		timerBar = this.add.sprite(10,10,"timer_bar")
+		timerBar = this.add.sprite(10, 10, "timer_bar");
 
 		//COUNTDOWN
 		timerSeconds = 80;
-    gameObj.timeLeft = timerSeconds;
+		gameObj.timeLeft = timerSeconds;
 		timerObj = this.game.time.create(false);
-		timerObj.loop(Phaser.Timer.SECOND/60, this.updateTimer, this);
+		timerObj.loop(Phaser.Timer.SECOND / 60, this.updateTimer, this);
 		timerObj.start();
-
 
 		let blue_BG = this.make.graphics();
 		blue_BG.lineStyle(0, 0x438eeb, 1);
@@ -80,7 +78,6 @@ gameObj.Game.prototype = {
 		keyD = this.input.keyboard.addKey(Phaser.Keyboard.D);
 		keyD.onDown.add(this.lose, this);
 
-
 		var qBG = this.add.sprite(26, 193, "aBG");
 		var pressQ_2 = this.add.text(37, 200, "Q", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "600 20px Raleway" });
 		var pressQ_3 = this.add.text(67, 200, "to add points to Red", { fill: "#FFFFFF", wordWrap: true, wordWrapWidth: 440, font: "300 20px Raleway" });
@@ -94,7 +91,6 @@ gameObj.Game.prototype = {
 
 		keyD = this.input.keyboard.addKey(Phaser.Keyboard.E);
 		keyD.onDown.add(this.addPointBlue, this);
-
 	},
 	makeBlock: function(x1, y1, w, h, opacity, group) {
 		let o = opacity ? opacity : 1;
@@ -111,23 +107,15 @@ gameObj.Game.prototype = {
 	lose: function() {
 		this.state.start("Lose");
 	},
-	addPointRed: function() {
-		gameObj.redScore += 10;
-		redScore.text = "Height: " + gameObj.redScore;
-	},
-	addPointBlue: function() {
-		gameObj.blueScore += 10;
-		blueScore.text = "Height: " + gameObj.blueScore;
-	},
 	updateTimer: function() {
-		gameObj.timeLeft -= 1/60;
-		if (gameObj.timeLeft <= 0 ) {
+		gameObj.timeLeft -= 1 / 60;
+		if (gameObj.timeLeft <= 0) {
 			if (gameObj.redScore >= 100 && gameObj.blueScore >= 100) {
-				this.state.start("Win")
+				this.state.start("Win");
 			} else {
-				this.state.start("Lose")
+				this.state.start("Lose");
 			}
 		}
-		timerBar.scale.x = ( gameObj.timeLeft ) / timerSeconds;
+		timerBar.scale.x = gameObj.timeLeft / timerSeconds;
 	}
 };
